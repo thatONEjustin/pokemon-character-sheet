@@ -2,11 +2,29 @@
   import InputField from "@components/ui/form/inputField.svelte";
   import Accordion from "@components/ui/accordion.svelte";
 
-  let { user_data } = $props();
+  import { storageAvailable } from "@js/utils";
+
+  // let user_data: any = {};
+  let fields: HTMLFieldSetElement | undefined;
+  let user_data: any = $state({});
+
+  $effect(() => {
+    const input_fields: NodeListOf<Element> | undefined =
+      fields?.querySelectorAll("input, textarea, select");
+
+    if (input_fields == undefined) return;
+
+    for (const element of input_fields) {
+      const id = element.getAttribute("id");
+      if (id == "" || id == undefined) continue;
+
+      user_data[id] = localStorage.getItem(id);
+    }
+  });
 </script>
 
 <h3>Player Info</h3>
-<fieldset>
+<fieldset bind:this={fields}>
   <InputField
     type="text"
     label="Player Name"

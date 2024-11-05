@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Tab } from "@js/types";
   // import InputField from "@components/ui/form/inputField.svelte";
   // import Accordion from "@components/ui/accordion.svelte";
   import SubmitButton from "@components/ui/form/submitButton.svelte";
@@ -6,6 +7,7 @@
   import TabContent from "@components/ui/tabs.svelte";
 
   import PlayerInfo from "@sheets/player-info.svelte";
+  import PokemonInfo from "@sheets/pokemon.svelte";
 
   import { storageAvailable } from "@js/utils";
 
@@ -13,17 +15,22 @@
   //   [key: string]: FormDataEntryValue;
   // }
 
-  const tabs = [
+  const tabs: Array<Tab> = [
     {
       label: "Info",
       index: 1,
-      component: PlayerInfo,
+      content: PlayerInfo,
+    },
+    {
+      label: "Info2",
+      index: 2,
+      content: PokemonInfo,
     },
   ];
 
   let form: HTMLFormElement | undefined;
   let form_data: FormData = $state(new FormData(form));
-  let user_data: any = $state({});
+  // let user_data: any = $state({});
 
   $effect((): void => {
     if (
@@ -37,6 +44,7 @@
       return;
     }
 
+    /*
     const fields: NodeListOf<Element> | undefined = form?.querySelectorAll(
       "input, textarea, select",
     );
@@ -48,31 +56,18 @@
       if (id == "" || id == undefined) continue;
 
       user_data[id] = localStorage.getItem(id);
-    }
-
-    // $inspect(user_data);
+    } */
   });
 
-  function custom_submit(event: Event) {
+  function onsubmit(event: Event) {
     event.preventDefault();
     console.log(event);
 
     form_data = new FormData(form);
   }
-
-  /*
-  function parse_formData(form_data: FormData): any {
-    let json_data: FormDataType = {};
-
-    form_data.forEach((value: FormDataEntryValue, key: string) => {
-      json_data[key] = value;
-    });
-
-    return JSON.stringify(json_data);
-  }*/
 </script>
 
-<form method="POST" onsubmit={custom_submit} bind:this={form}>
+<form method="POST" {onsubmit} bind:this={form}>
   <!--
   <h3>Player Info</h3>
   <fieldset>
@@ -119,7 +114,7 @@
   </fieldset>
   -->
 
-  <!-- <TabContent {tabs} /> -->
+  <TabContent {tabs} />
 
   <SubmitButton>
     Submit

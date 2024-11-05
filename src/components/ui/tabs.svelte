@@ -1,50 +1,42 @@
-<script>
+<script lang="ts">
+  import type { Tab } from "@js/types";
+
   import { fly } from "svelte/transition";
-  import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
-  const { tabs } = $$restProps;
+  const { tabs }: { tabs: Array<Tab> } = $props();
 
-  let active = 1;
+  let active = $state(1);
 
-  function save(event) {
-    console.log(event);
-    dispatch("savesheet", {
-      data: new FormData(document.querySelector("form")),
-    });
+  function show_tab(index: number):undefined {
+    active = index;
+
+    return
   }
-
-  // function show(which) {
-  //   active = which
-  // }
-
-  const show = (tab_index) => () => (active = tab_index);
 </script>
 
 <ul class="mb-[-2px] flex items-stretch border-b-white border-b z-20">
   {#each tabs as { label, index }}
     <li
-      class="inline-flex rounded-t-md px-5 py-2.5 {active === index
-        ? 'active'
-        : ''}"
+      class:active={active === index}
+      class="inline-flex rounded-t-md px-5 py-2.5"
     >
-      <!-- svelte-ignore a11y-invalid-attribute -->
-      <a href="#" on:click={save} on:click|preventDefault={show(index)}>
-        {label}
-      </a>
+      <!-- <a href="#" on:click={save} on:click|preventDefault={show(index)}> -->
+      <!--   {label} -->
+      <!-- </a> -->
+      <button onclick={() => show_tab(index)}>{label}</button>
     </li>
   {/each}
 </ul>
 
 <div class="rounded-b-md border border-gray-200 bg-white overflow-hidden z-10">
-  {#each tabs as { component, index }}
+  {#each tabs as { content, index }}
     {#if active == index}
       <section
         class="tab p-5"
         in:fly={{ x: "100%", y: 0, delay: 350 }}
         out:fly={{ x: "-100%", y: 0, duration: 250 }}
       >
-        <svelte:component this={component} />
+        {@render content()}
       </section>
     {/if}
   {/each}
