@@ -1,0 +1,33 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@css/*": [
+        "src/css/*"
+      ],
+      "@js/*": [
+        "src/js/*"
+      ],
+      "@img/*": [
+        "src/img/*"
+      ],
+      "@sheets/*": [
+        "src/sheet-sections/*"
+      ],
+      "@node/*": [
+        "node_modules/*"
+      ]
+    }
+  }
+}

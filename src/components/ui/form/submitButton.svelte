@@ -1,0 +1,43 @@
+<script lang="ts">
+  import type { Snippet } from "svelte";
+
+  interface SubmitButtonType {
+    name?: string,
+    id?: string,
+    containerClass?: string
+    children?: Snippet
+  }
+
+  let {
+    name = "submit",
+    id = "submit_btn",
+    containerClass = "",
+    children
+  }:SubmitButtonType  = $props();
+</script>
+
+<div class={containerClass}>
+  <button type="submit" {name} {id}>
+    {#if children}
+      {@render children()}
+    {:else}
+      <strong>Submit</strong>
+    {/if}
+  </button>
+</div>
+
+<style lang="postcss">
+  button {
+    @apply border
+      bg-green-700
+      border-green-700
+      rounded-md
+      px-3
+      py-2;
+
+    &:hover {
+      @apply bg-green-900 text-light;
+    }
+  }
+</style>
+

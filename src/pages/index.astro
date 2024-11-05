@@ -1,0 +1,29 @@
+---
+import Layout from '@layouts/Layout.astro';
+
+import CharacterSheet from '@components/ui/form.svelte'
+---
+
+<Layout title="Welcome to Astro.">
+  <div class="contianer mx-auto">
+    <div class="PlayerInfo">
+      <CharacterSheet client:only="svelte" />
+    </div>
+
+  </div>
+</Layout>
+<style>
+  h3 {
+    @apply
+      border-b
+      border-dark-300
+      pb-2
+      mb-6;
+  }
+  .PlayerInfo {
+    @apply 
+      p-4
+      rounded-md
+      mb-4;
+  }
+</style>
