@@ -1,25 +1,19 @@
 <script lang="ts">
+  // import type { UserData } from "@js/types";
   import InputField from "@components/ui/form/inputField.svelte";
   import Accordion from "@components/ui/accordion.svelte";
 
-  import { storageAvailable } from "@js/utils";
+  // import { storageAvailable } from "@js/utils";
 
-  // let user_data: any = {};
-  let fields: HTMLFieldSetElement | undefined;
-  let user_data: any = $state({});
+  let { sheet_data }: { sheet_data?:object } = $props()
+
+  // const input_field_list = "input, select, textarea"
+
+  let fields: HTMLFieldSetElement | undefined = $state() as HTMLFieldSetElement;
+  let user_data:any = $derived(sheet_data)
 
   $effect(() => {
-    const input_fields: NodeListOf<Element> | undefined =
-      fields?.querySelectorAll("input, textarea, select");
-
-    if (input_fields == undefined) return;
-
-    for (const element of input_fields) {
-      const id = element.getAttribute("id");
-      if (id == "" || id == undefined) continue;
-
-      user_data[id] = localStorage.getItem(id);
-    }
+    $inspect(user_data)
   });
 </script>
 
@@ -29,7 +23,7 @@
     type="text"
     label="Player Name"
     name="player_name"
-    value={user_data.player_name}
+    value={user_data?.player_name}
     id="player_name"
   />
 
@@ -39,7 +33,7 @@
       label="Character Name"
       name="character_name"
       id="character_name"
-      value={user_data.character_name}
+      value={user_data?.character_name}
     />
 
     <InputField
@@ -47,22 +41,23 @@
       label="Gym Name"
       name="gym_name"
       id="gym_name"
-      value={user_data.gym_name}
+      value={user_data?.gym_name}
     />
   </div>
 
-  <Accordion containerClass="mt-8" collapsed={false}>
-    <h4 slot="title">Backstory</h4>
+  <Accordion containerClass="mt-8">
+    {#snippet title()}
+      <h4>Backstory</h4>
+    {/snippet}
 
-    <svelte:fragment slot="content">
-      <InputField
-        type="textarea"
-        label=""
-        rows={10}
-        name="backstory"
-        id="backstory"
-        value={user_data.backstory}
+    <InputField
+      type="textarea"
+      hideLabel={true}
+      label="Backstory"
+      rows={10}
+      name="backstory"
+      id="backstory"
+      value={user_data?.backstory}
       />
-    </svelte:fragment>
   </Accordion>
 </fieldset>

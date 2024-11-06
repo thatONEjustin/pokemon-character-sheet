@@ -1,45 +1,49 @@
 <script lang="ts">
-  import type { Tab } from "@js/types";
+  import type { Tabs } from "@js/types";
 
-  import { fly } from "svelte/transition";
+  import { slide } from "svelte/transition";
 
-  const { tabs }: { tabs: Array<Tab> } = $props();
+  let { tabs, sheet_data, children }: Tabs = $props();
 
   let active = $state(1);
 
-  function show_tab(index: number):undefined {
+  function show_tab(index: number): undefined {
     active = index;
 
-    return
+    return;
   }
 </script>
 
-<ul class="mb-[-2px] flex items-stretch border-b-white border-b z-20">
+<ul
+  class="mb-[-2px] flex items-stretch rounded-md border-2 border-b-black z-20"
+>
   {#each tabs as { label, index }}
     <li
       class:active={active === index}
       class="inline-flex rounded-t-md px-5 py-2.5"
     >
-      <!-- <a href="#" on:click={save} on:click|preventDefault={show(index)}> -->
-      <!--   {label} -->
-      <!-- </a> -->
-      <button onclick={() => show_tab(index)}>{label}</button>
+      <a
+        href={`#${label.toLowerCase().replace(" ", "")}`}
+        onclick={() => show_tab(index)}
+      >
+        {label}
+      </a>
     </li>
   {/each}
 </ul>
 
-<div class="rounded-b-md border border-gray-200 bg-white overflow-hidden z-10">
-  {#each tabs as { content, index }}
+<div class="rounded-b-md border-2 border-dracula overflow-hidden z-10">
+  {#each tabs as { content: Content, index }}
     {#if active == index}
-      <section
-        class="tab p-5"
-        in:fly={{ x: "100%", y: 0, delay: 350 }}
-        out:fly={{ x: "-100%", y: 0, duration: 250 }}
-      >
-        {@render content()}
+      <section class="tab p-5" transition:slide>
+        <Content {sheet_data} />
       </section>
     {/if}
   {/each}
+
+  {#if children}
+    {@render children?.()}
+  {/if}
 </div>
 
 <style lang="postcss">
@@ -48,6 +52,10 @@
       border
       border-dark
       border-b-cullen
-      bg-cullen;
+      bg-dracula;
+  }
+
+  .active a {
+    @apply text-nosferatu-900;
   }
 </style>

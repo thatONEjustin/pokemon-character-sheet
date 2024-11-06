@@ -1,38 +1,47 @@
-<script>
-  import { slide } from "svelte/transition";
+<script lang="ts">
+  import type { Snippet } from "svelte";
+  import { scale } from "svelte/transition";
 
-  // const { containerClass } = $$restProps;
-  let { containerClass, collapsed = false } = $props();
+  interface AccordionType {
+    containerClass?: string
+    open?: boolean,
+    title?: Snippet,
+    children?: Snippet,
+    openIndicator?: Snippet
+  }
 
-  // let collapsed = ($$restProps.collapsed) ? $$restProps.collapsed : false
+  let { containerClass = "", open = false, title, children, openIndicator }:AccordionType = $props()
 
-  function showHide() {
-    collapsed = !collapsed;
+  function show(event:Event) {
+    event.preventDefault()
+    open = !open;
   }
 </script>
 
-<div class={containerClass}>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div class="flex flex-row justify-between cursor-pointer" on:click={showHide}>
-    <slot name="title">
+<div class={`accordion ${containerClass}`}>
+  <button type="button" class="accordion-title" onclick={show}>
+    {#if title}
+      {@render title()}
+    {:else}
       <h4>Default</h4>
-    </slot>
+    {/if}
 
-    <slot name="openIndicator">
-      <div>
-        {#if collapsed}
-          +
+    {#if openIndicator}
+      {@render openIndicator()}
+    {:else}
+      <div class="font-bold text-3xl text-aro-400">
+        {#if open}
+          <i class="nf nf-fa-circle_plus"></i>
         {:else}
-          -
+          <i class="nf nf-fa-circle_minus"></i>
         {/if}
       </div>
-    </slot>
-  </div>
+    {/if}
+  </button>
 
-  {#if !collapsed}
-    <div class="accordion" transition:slide>
-      <slot name="content">Default Content</slot>
+  {#if !open}
+    <div class="accordion" transition:scale>
+      {@render children?.()}
     </div>
   {/if}
 </div>
@@ -41,6 +50,10 @@
   .accordion {
     @apply flex
       flex-col;
+  }
+
+  .accordion-title {
+    @apply flex flex-row justify-between cursor-pointer;
   }
 </style>
 

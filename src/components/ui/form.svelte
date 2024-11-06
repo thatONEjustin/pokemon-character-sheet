@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { Tab } from "@js/types";
   // import InputField from "@components/ui/form/inputField.svelte";
   // import Accordion from "@components/ui/accordion.svelte";
@@ -11,114 +12,67 @@
 
   import { storageAvailable } from "@js/utils";
 
-  // interface FormDataType {
-  //   [key: string]: FormDataEntryValue;
-  // }
-
   const tabs: Array<Tab> = [
     {
       label: "Info",
       index: 1,
-      content: PlayerInfo,
+      content: PlayerInfo as Snippet,
     },
     {
       label: "Info2",
       index: 2,
-      content: PokemonInfo,
+      content: PokemonInfo as Snippet,
     },
   ];
 
   let form: HTMLFormElement | undefined;
   let form_data: FormData = $state(new FormData(form));
-  // let user_data: any = $state({});
+
+  let sheet_data: any = $state({});
 
   $effect((): void => {
-    if (
-      form_data.entries().toArray().length &&
-      storageAvailable("localStorage")
-    ) {
-      for (const [key, value] of form_data.entries()) {
-        localStorage.setItem(key, value as string);
+    const init: number = form_data.entries().toArray().length;
+
+    if (init === 0) {
+      const fields = form?.querySelectorAll("input, select, textarea");
+      if (fields == undefined) return;
+      if (storageAvailable("localStorage") == false) return;
+
+      for (const input_field of fields) {
+        console.log(input_field);
+        const key: string = input_field.getAttribute("name") as string;
+
+        if (!localStorage.getItem(key)) return;
+
+        sheet_data[key] = localStorage.getItem(key) as string;
       }
 
       return;
     }
 
-    /*
-    const fields: NodeListOf<Element> | undefined = form?.querySelectorAll(
-      "input, textarea, select",
-    );
+    for (const [key, value] of form_data.entries()) {
+      if (localStorage.getItem(key) == (value as string)) continue; //skip if localStorage hasn't changed
 
-    if (fields == undefined) return;
-
-    for (const element of fields) {
-      const id = element.getAttribute("id");
-      if (id == "" || id == undefined) continue;
-
-      user_data[id] = localStorage.getItem(id);
-    } */
+      update_field(key, value as string);
+    }
   });
 
-  function onsubmit(event: Event) {
-    event.preventDefault();
-    console.log(event);
+  function update_field(key: string, value: string) {
+    localStorage.setItem(key, value);
+    sheet_data[key] = value;
+  }
 
+  function onsubmit(_event: Event) {
     form_data = new FormData(form);
   }
 </script>
 
 <form method="POST" {onsubmit} bind:this={form}>
-  <!--
-  <h3>Player Info</h3>
-  <fieldset>
-    <InputField
-      type="text"
-      label="Player Name"
-      name="player_name"
-      value={user_data.player_name}
-      id="player_name"
-    />
-
-    <div class="grid grid-cols-2 gap-x-4">
-      <InputField
-        type="text"
-        label="Character Name"
-        name="character_name"
-        id="character_name"
-        value={user_data.character_name}
-      />
-
-      <InputField
-        type="text"
-        label="Gym Name"
-        name="gym_name"
-        id="gym_name"
-        value={user_data.gym_name}
-      />
-    </div>
-
-    <Accordion containerClass="mt-8" collapsed={false}>
-      <h4 slot="title">Backstory</h4>
-
-      <svelte:fragment slot="content">
-        <InputField
-          type="textarea"
-          label=""
-          rows={10}
-          name="backstory"
-          id="backstory"
-          value={user_data.backstory}
-        />
-      </svelte:fragment>
-    </Accordion>
-  </fieldset>
-  -->
-
-  <TabContent {tabs} />
+  <TabContent {tabs} {sheet_data} />
 
   <SubmitButton>
-    Submit
-    <i class="nf nf-md-wrench"></i>
+    Next
+    <i class="nf nf-fa-arrow_right"></i>
   </SubmitButton>
 </form>
 
@@ -128,13 +82,6 @@
       max-w-xl
       mx-auto;
   }
-
-  /*
-  fieldset {
-    @apply flex
-      flex-col
-      my-6;
-  } */
 
   :global(h1) {
     @apply text-4xl;

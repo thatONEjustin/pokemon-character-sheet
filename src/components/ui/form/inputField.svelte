@@ -1,59 +1,51 @@
 <script lang="ts">
-  interface TextInput {
-    name: string;
-    type: string;
-    id: string;
-    label: string;
-    required?: boolean;
-    className?: string;
-    rows?: number;
-    placeholder?: string;
-    editing?: boolean;
-    value?: string;
-  }
+  import type { TextInputElement, TextInput } from "@js/types"
 
   let {
     name = "",
     type = "",
     id = "",
     label = "",
+    labelTag,
+    hideLabel = false,
     required = false,
     className = "",
     rows = 4,
     placeholder = "",
-    editing = false,
-    value = "",
+    value = $bindable(""),
   }: TextInput = $props();
 
-  let display_placeholder: string = $state(`Enter ${label} Here`);
-  let input: HTMLInputElement | HTMLTextAreaElement = $state() as
-    | HTMLInputElement
-    | HTMLTextAreaElement;
+  let input: TextInputElement = $state() as TextInputElement;
 
-  if (placeholder != "") {
-    display_placeholder = placeholder;
-  }
+  let display_placeholder: string = $derived.by(() => {
+    return placeholder != ""
+      ? placeholder
+      : `Enter ${name.replaceAll("_", " ")} here`;
+  });
 
-  function onclick(_event: Event) {
+  let editing: boolean = $state(false);
+
+  function input_field_save(_event: Event) {
     editing = !editing;
 
-    if (!editing) {
-      value = input.value;
-    }
+    if(editing) return
+
+    value = input.value;
   }
 </script>
 
 <div class={className}>
-  <label for={name}>{label}</label>
+  {#if labelTag && !hideLabel}
+    {@render labelTag()}
+  {:else if !hideLabel}
+    <label for={name}>{label}</label>
+  {/if}
 
-  <button
-    class:has-value={value != ""}
-    class:hidden={editing}
-    type="button"
-    name={`submit_${name}`}
-    id={`submit_${name}`}
-    {onclick}>{value}</button
-  >
+  {#if !editing && value != ""}
+    <button class:has-value={value != ""} type="button" onclick={input_field_save}>
+      {value}
+    </button>
+  {/if}
 
   {#if type != "textarea"}
     <input
@@ -63,7 +55,7 @@
       {value}
       {required}
       placeholder={display_placeholder}
-      class:hidden={!editing}
+      class:hidden={!editing && value != ""}
       bind:this={input}
     />
   {/if}
@@ -75,14 +67,18 @@
       {rows}
       {required}
       placeholder={display_placeholder}
-      class:hidden={!editing}
-      bind:this={input}>{value}</textarea
-    >
+      class:hidden={!editing && value != ""}
+      bind:this={input}>{value}</textarea>
   {/if}
 
-  <button class="edit" class:hidden={!editing} type="submit" {onclick}
-    >Save</button
+  <button
+    class="edit"
+    class:hidden={!editing || value == ""}
+    type="submit"
+    onclick={input_field_save}
   >
+    Save
+  </button>
 </div>
 
 <style lang="postcss">
