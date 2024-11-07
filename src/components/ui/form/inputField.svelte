@@ -17,6 +17,8 @@
 
   type TextInputElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
+  import { fade } from "svelte/transition";
+
   let {
     name = "",
     type = "",
@@ -87,14 +89,15 @@
       bind:this={input}>{value}</textarea>
   {/if}
 
-  <button
-    class="edit"
-    class:hidden={!editing || value == ""}
-    type="submit"
-    onclick={input_field_save}
-  >
-    Save
-  </button>
+  {#if editing || value != ""}
+    <button 
+      class="edit" 
+      class:hidden={!editing || value == ""}
+      type="submit" 
+      onclick={input_field_save}>
+      Save
+    </button>
+  {/if}
 </div>
 
 <style lang="postcss">

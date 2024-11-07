@@ -7,6 +7,7 @@
   import PokemonInfo from "@sheets/pokemon.svelte";
 
   import { storageAvailable } from "@js/utils";
+  // import SubmitButton from "./form/submitButton.svelte";
 
   const tabs: Array<Tab> = [
     {
@@ -23,19 +24,22 @@
 
   let form: HTMLFormElement | undefined;
   let form_data: FormData = $state(new FormData(form));
+  const input_fields_list: Array<string> = ["input", "select", "textarea"];
 
   let sheet_data: any = $state({});
+  let active: number = $state(1);
 
   $effect((): void => {
     const init: number = form_data.entries().toArray().length;
 
     if (init === 0) {
-      const fields = form?.querySelectorAll("input, select, textarea");
+      const fields = form?.querySelectorAll(input_fields_list.join());
+
       if (fields == undefined) return;
       if (storageAvailable("localStorage") == false) return;
 
       for (const input_field of fields) {
-        console.log(input_field);
+        // console.log(input_field);
         const key: string = input_field.getAttribute("name") as string;
 
         if (!localStorage.getItem(key)) return;
@@ -58,13 +62,27 @@
     sheet_data[key] = value;
   }
 
-  function onsubmit(_event: Event) {
+  function onsubmit(event: SubmitEvent) {
     form_data = new FormData(form);
+
+    const submitter: HTMLElement = event.submitter as HTMLElement;
+
+    if (submitter.getAttribute("name") == "submit_next") {
+      // console.log(submitter);
+      console.log(active, tabs.length);
+      if (active >= tabs.length) {
+        active = 1;
+        return;
+      }
+
+      active++;
+      return;
+    }
   }
 </script>
 
 <form method="POST" {onsubmit} bind:this={form}>
-  <TabContent {tabs} {sheet_data} />
+  <TabContent {tabs} {sheet_data} {active} />
 </form>
 
 <style lang="postcss">

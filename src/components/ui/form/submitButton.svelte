@@ -10,8 +10,8 @@
   }
 
   let {
-    name = "submit",
-    id = "submit_btn",
+    name = "submit_next",
+    id = "submit_next",
     className = "",
     children
   }:SubmitButtonType  = $props();

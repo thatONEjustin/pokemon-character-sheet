@@ -7,14 +7,11 @@
 
   let { sheet_data }: { sheet_data?:object } = $props()
 
-  // const input_field_list = "input, select, textarea"
-
   let fields: HTMLFieldSetElement | undefined = $state() as HTMLFieldSetElement;
   let user_data:any = $derived(sheet_data)
 
   $effect(() => {
     // $inspect(user_data)
-    // $inspect(fields)
   });
 </script>
 
@@ -26,6 +23,7 @@
     name="player_name"
     value={user_data?.player_name}
     id="player_name"
+    required
   />
 
   <div class="grid grid-cols-2 gap-x-4">
@@ -35,6 +33,7 @@
       name="character_name"
       id="character_name"
       value={user_data?.character_name}
+      required
     />
 
     <InputField
@@ -43,6 +42,7 @@
       name="gym_name"
       id="gym_name"
       value={user_data?.gym_name}
+      required
     />
   </div>
 
