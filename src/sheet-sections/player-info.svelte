@@ -14,7 +14,7 @@
 
   $effect(() => {
     // $inspect(user_data)
-    $inspect(fields)
+    // $inspect(fields)
   });
 </script>
 
