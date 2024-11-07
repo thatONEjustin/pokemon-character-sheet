@@ -4,19 +4,19 @@
   interface SubmitButtonType {
     name?: string,
     id?: string,
-    containerClass?: string
+    className?: string
     children?: Snippet
   }
 
   let {
     name = "submit",
     id = "submit_btn",
-    containerClass = "",
+    className = "",
     children
   }:SubmitButtonType  = $props();
 </script>
 
-<div class={containerClass}>
+<div class={className}>
   <button type="submit" {name} {id}>
     {#if children}
       {@render children()}

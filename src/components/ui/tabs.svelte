@@ -1,9 +1,19 @@
 <script lang="ts">
   import type { Tabs } from "@js/types";
+  import type { Snippet } from "svelte"
+
+  type TabsProps = {
+    tabs: Array<object>;
+    sheet_data: any;
+    children?: Snippet;
+  }
+
+
+  import SubmitButton from "@components/ui/form/submitButton.svelte";
 
   import { slide } from "svelte/transition";
 
-  let { tabs, sheet_data, children }: Tabs = $props();
+  let { tabs, sheet_data, children }: TabsProps = $props();
 
   let active = $state(1);
 
@@ -45,6 +55,11 @@
     {@render children?.()}
   {/if}
 </div>
+
+<SubmitButton>
+  Next
+  <i class="nf nf-fa-arrow_right"></i>
+</SubmitButton>
 
 <style lang="postcss">
   .active {

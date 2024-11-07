@@ -1,9 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import type { Tab } from "@js/types";
-  // import InputField from "@components/ui/form/inputField.svelte";
-  // import Accordion from "@components/ui/accordion.svelte";
-  import SubmitButton from "@components/ui/form/submitButton.svelte";
+  import type { Tab, Snippet } from "@js/types";
 
   import TabContent from "@components/ui/tabs.svelte";
 
@@ -69,11 +65,6 @@
 
 <form method="POST" {onsubmit} bind:this={form}>
   <TabContent {tabs} {sheet_data} />
-
-  <SubmitButton>
-    Next
-    <i class="nf nf-fa-arrow_right"></i>
-  </SubmitButton>
 </form>
 
 <style lang="postcss">

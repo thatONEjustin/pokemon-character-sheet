@@ -1,4 +1,3 @@
-// import { sveltePreprocess } from "svelte-preprocess"
 import { vitePreprocess } from '@astrojs/svelte';
 
 

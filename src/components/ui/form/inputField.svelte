@@ -1,5 +1,21 @@
 <script lang="ts">
-  import type { TextInputElement, TextInput } from "@js/types"
+  import type { Snippet } from "svelte";
+
+  type TextInput = {
+    name: string;
+    type: string;
+    id: string;
+    hideLabel?: boolean;
+    label: string;
+    labelTag?: Snippet;
+    required?: boolean;
+    className?: string;
+    rows?: number;
+    placeholder?: string;
+    value?: string;
+  }
+
+  type TextInputElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
   let {
     name = "",

@@ -13,12 +13,13 @@
   let user_data:any = $derived(sheet_data)
 
   $effect(() => {
-    $inspect(user_data)
+    // $inspect(user_data)
+    $inspect(fields)
   });
 </script>
 
 <h3>Player Info</h3>
-<fieldset bind:this={fields}>
+<fieldset name="playerInfo" bind:this={fields}>
   <InputField
     type="text"
     label="Player Name"
