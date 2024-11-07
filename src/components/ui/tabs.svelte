@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Tabs } from "@js/types";
+  import type { Tab } from "@js/types";
   import type { Snippet } from "svelte"
 
   type TabsProps = {
-    tabs: Array<object>;
+    tabs: Array<Tab>;
     sheet_data: any;
     children?: Snippet;
   }
@@ -17,10 +17,14 @@
 
   let active = $state(1);
 
-  function show_tab(index: number): undefined {
+  function show_tab(index: number):void {
     active = index;
 
     return;
+  }
+
+  function click_next(_event:Event):void {
+    // console.log($host())
   }
 </script>
 
@@ -56,7 +60,7 @@
   {/if}
 </div>
 
-<SubmitButton>
+<SubmitButton onclick={click_next}>
   Next
   <i class="nf nf-fa-arrow_right"></i>
 </SubmitButton>

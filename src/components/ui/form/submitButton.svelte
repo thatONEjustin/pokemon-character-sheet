@@ -6,6 +6,7 @@
     id?: string,
     className?: string
     children?: Snippet
+    onclick?: any
   }
 
   let {
