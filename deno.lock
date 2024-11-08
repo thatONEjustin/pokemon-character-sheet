@@ -3374,6 +3374,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@astrojs/check@~0.9.4",
+        "npm:@astrojs/netlify@^5.5.4",
         "npm:@astrojs/node@^8.3.4",
         "npm:@astrojs/svelte@^5.7.2",
         "npm:@astrojs/tailwind@^5.1.2",
