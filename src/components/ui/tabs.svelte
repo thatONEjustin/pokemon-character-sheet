@@ -1,34 +1,37 @@
 <script lang="ts">
   import type { Tab } from "@js/types";
-  import type { Snippet } from "svelte"
+  import type { Snippet } from "svelte";
 
   type TabsProps = {
     tabs: Array<Tab>;
     sheet_data: any;
     children?: Snippet;
-  }
-
+    active: any;
+  };
 
   import SubmitButton from "@components/ui/form/submitButton.svelte";
 
   import { fly } from "svelte/transition";
 
-  let { tabs, sheet_data, children, active = $bindable(1) }: Tabs = $props();
+  let {
+    tabs,
+    sheet_data,
+    children,
+    active = $bindable(1),
+  }: TabsProps = $props();
 
-  function show_tab(index: number):void {
+  function show_tab(index: number): void {
     active = index;
 
     return;
   }
 
-  function click_next(_event:Event):void {
+  function click_next(_event: Event): void {
     // console.log($host())
   }
 </script>
 
-<ul
-  class="mb-[-2px] flex items-stretch rounded-md border-2 border-b-black z-20"
->
+<ul class="mb-[-2px] flex items-stretch rounded-md z-20">
   {#each tabs as { label, index }}
     <li
       class:active={active === index}
@@ -44,13 +47,15 @@
   {/each}
 </ul>
 
-<div class="rounded-b-md border-2 border-dracula overflow-hidden z-10">
+<div
+  class="rounded-b-md border-2 border-red-800 bg-red-800 overflow-hidden z-10"
+>
   {#each tabs as { content: Content, index }}
     {#if active == index}
-      <section 
-        class="tab p-5" 
+      <section
+        class="tab p-5"
         in:fly={{ x: "100%", y: 0, delay: 350 }}
-        out:fly={{ x: "-100%", y: 0, duration: 250 }} 
+        out:fly={{ x: "-100%", y: 0, duration: 250 }}
       >
         <!-- transition:slide -->
         <Content {sheet_data} />
@@ -72,9 +77,9 @@
   .active {
     @apply pb-[1px]
       border
-      border-dark
+      border-red-800
       border-b-cullen
-      bg-dracula;
+      bg-red-800;
   }
 
   .active a {

@@ -9,13 +9,13 @@
 /*
  * NOTE: local fonts
  */
-@import 'fonts/fonts.css';
-@import 'fonts/nf-icons.css';
+@import './fonts/fonts.css';
+@import './fonts/nf-icons.css';
 
 /*
  * NOTE: tailwind base finally figured out
  */
-@import 'tailwind/tailwind.css';
+@import './tailwind/tailwind.css';
 
 /*
  * NOTE:  components go here 

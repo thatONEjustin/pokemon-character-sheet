@@ -1,9 +1,11 @@
 <script lang="ts">
-  import InputField from '@components/ui/form/inputField.svelte';
+  import InputField from "@components/ui/form/inputField.svelte";
+
   interface StabStats {
-    weak: Array<string>
-    strong: Array<string>
+    weak: Array<string>;
+    strong: Array<string>;
   }
+
   interface PokemonElementType {
     name: string;
     stab: StabStats;
@@ -34,29 +36,29 @@
           name: "Psychic",
           stab: {
             weak: ["dark"],
-            strong: ["normal"]
-          }
+            strong: ["normal"],
+          },
         },
         {
           name: "Water",
           stab: {
             weak: ["electric"],
-            strong: ["fire"]
-          }
-        }
+            strong: ["fire"],
+          },
+        },
       ],
       moves: [
         {
           name: "Water Gun",
           type: ["water"],
-          die: 6
-        }
-      ]
-    }
-  ])
+          die: 6,
+        },
+      ],
+    },
+  ]);
 </script>
 
-{#snippet pokemon_snippet(pokemon:PokemonType, key:any)}
+{#snippet pokemon_snippet(pokemon: PokemonType, key: any)}
   <div>
     <InputField
       type="text"
@@ -64,7 +66,7 @@
       name={`pokemon_name_${key}`}
       id="pokemon_name"
       value={pokemon.name}
-      />
+    />
   </div>
 {/snippet}
 
