@@ -1,0 +1,27 @@
+.TabsNav {
+  @apply flex
+    items-stretch
+    rounded-md
+    z-25;
+
+  > li {
+    @apply inline-flex rounded-t-md px-5 py-2.5;
+
+    &.active {
+      @apply
+        border
+        border-danger
+        border-b-danger
+        bg-danger;
+
+      a {
+        @apply text-contrast;
+      }
+    }
+  }
+
+}
+
+.Tabs {
+  @apply rounded-b-md border-2 border-danger bg-danger overflow-hidden z-10;
+}

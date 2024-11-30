@@ -3,17 +3,23 @@
   import { scale } from "svelte/transition";
 
   interface AccordionType {
-    containerClass?: string
-    open?: boolean,
-    title?: Snippet,
-    children?: Snippet,
-    openIndicator?: Snippet
+    containerClass?: string;
+    open?: boolean;
+    title?: Snippet;
+    children?: Snippet;
+    openIndicator?: Snippet;
   }
 
-  let { containerClass = "", open = false, title, children, openIndicator }:AccordionType = $props()
+  let {
+    containerClass = "",
+    open = false,
+    title,
+    children,
+    openIndicator,
+  }: AccordionType = $props();
 
-  function show(event:Event) {
-    event.preventDefault()
+  function show(event: Event) {
+    event.preventDefault();
     open = !open;
   }
 </script>
@@ -29,7 +35,7 @@
     {#if openIndicator}
       {@render openIndicator()}
     {:else}
-      <div class="font-bold text-3xl text-aro-400">
+      <div class="font-bold text-3xl">
         {#if open}
           <i class="nf nf-fa-circle_plus"></i>
         {:else}
@@ -56,4 +62,3 @@
     @apply flex flex-row justify-between cursor-pointer;
   }
 </style>
-

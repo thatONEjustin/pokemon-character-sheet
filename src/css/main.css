@@ -20,7 +20,9 @@
 /*
  * NOTE:  components go here 
  */
-/* @import 'components/skills-list.css'; */
+@import './components/form/inputField.css';
+@import './components/form/submitButton.css';
+@import './components/form/tabs.css';
 
 /*
  * NOTE: pages/sections 

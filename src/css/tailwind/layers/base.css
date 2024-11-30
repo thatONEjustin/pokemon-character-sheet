@@ -1,10 +1,45 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-*: initial;
+  --font-pokemon-gb: Pokemon GB;
+  --font-press-start: Press Start 2P;
+  --font-nf-symbols: Symbols Nerd Font;
+  --font-firacode: FiraCode Nerd Font;
+
+  --color-transparent: transparent;
+  --color-white: #f8f3f8;
+
+  --color-contrast: #181010;
+
+  --color-primary: #48a058;
+
+  --color-secondary: #f0b088;
+
+  --color-danger: #b3181c;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
   body {
-    @apply bg-light;
+    @apply bg-white;
   }
 
   h1,
@@ -13,7 +48,7 @@
   h4,
   h5,
   h6 {
-    @apply text-darker-300 font-bold;
+    @apply text-contrast font-bold;
   }
 
   h1 {
@@ -21,15 +56,15 @@
   }
 
   h2 {
-    @apply text-4xl pb-4 text-darker-200;
+    @apply text-4xl pb-4 text-contrast/200;
   }
-
+ 
   h3 {
-    @apply text-2xl text-darker-500;
+    @apply text-2xl text-contrast/500;
   }
 
   p {
-    @apply text-darker-100;
+    @apply text-contrast/100;
 
     + p {
       @apply my-8;
@@ -41,7 +76,7 @@
   }
 
   a {
-    @apply text-purple underline underline-offset-[6px];
+    @apply text-contrast underline underline-offset-[6px];
     @apply decoration-dashed;
   }
 

@@ -84,31 +84,3 @@
 <form method="POST" {onsubmit} bind:this={form}>
   <TabContent {tabs} {sheet_data} {active} />
 </form>
-
-<style lang="postcss">
-  form {
-    @apply w-auto
-      max-w-xl
-      mx-auto;
-  }
-
-  :global(h1) {
-    @apply text-4xl;
-  }
-
-  :global(h2) {
-    @apply text-3xl;
-  }
-
-  :global(h3) {
-    @apply text-2xl;
-  }
-
-  :global(h4) {
-    @apply text-xl;
-  }
-
-  :global(h5) {
-    @apply text-lg;
-  }
-</style>
