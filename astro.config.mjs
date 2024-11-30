@@ -13,10 +13,7 @@ import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte(), tailwind({
-    applyBaseStyles: false,
-    nesting: true
-  })],
+  integrations: [svelte()],
 
   adapter: deno(),
   output: 'server',
