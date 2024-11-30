@@ -18,7 +18,6 @@ export default defineConfig({
     nesting: true
   })],
 
-  output: "server",
   adapter: deno(),
   output: 'server',
 
@@ -26,5 +25,4 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  adapter: netlify()
 });
