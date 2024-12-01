@@ -13,16 +13,9 @@
 @import './fonts/nf-icons.css';
 
 /*
- * NOTE: tailwind base finally figured out
+ * NOTE: tailwind
  */
-@import './tailwind/tailwind.css';
-
-/*
- * NOTE:  components go here 
- */
-@import './components/form/inputField.css';
-@import './components/form/submitButton.css';
-@import './components/form/tabs.css';
+@import './tailwind.css';
 
 /*
  * NOTE: pages/sections 

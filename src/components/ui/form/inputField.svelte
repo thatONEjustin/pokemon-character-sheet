@@ -55,7 +55,7 @@
   }
 </script>
 
-<div class={`${className} input-field`}>
+<div class:className class="input-field">
   {#if labelTag && !hideLabel}
     {@render labelTag()}
   {:else if !hideLabel}
@@ -108,3 +108,60 @@
     </button>
   {/if}
 </div>
+
+<!-- @import "tailwindcss/theme" theme(reference); -->
+<style lang="postcss">
+  @import "tailwindcss/theme" theme(reference);
+  @import "@css/tailwind/theme.css" theme(reference);
+
+  .input-field {
+    @apply flex
+      flex-col
+      my-3;
+
+    > label {
+      @apply pb-1
+        mb-3;
+    }
+
+    > button {
+      @apply py-3
+        cursor-pointer
+        text-contrast
+        text-left;
+
+      &.has-value {
+        @apply text-contrast
+          decoration-dotted
+          font-bold;
+      }
+
+      &.edit {
+        @apply bg-primary
+          text-white
+          border
+          border-contrast
+          rounded-md
+          mt-2
+          px-4
+          py-2
+          cursor-pointer
+          w-max
+          max-w-max;
+      }
+    }
+
+    > input,
+    > textarea {
+      @apply w-full;
+
+      @apply w-full
+        bg-white
+        text-contrast
+        border
+        border-contrast
+        rounded-md
+        p-3;
+    }
+  }
+</style>

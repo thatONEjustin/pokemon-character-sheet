@@ -1,24 +1,3 @@
-@import 'tailwindcss';
-
-@theme {
-  --font-*: initial;
-  --font-pokemon-gb: Pokemon GB;
-  --font-press-start: Press Start 2P;
-  --font-nf-symbols: Symbols Nerd Font;
-  --font-firacode: FiraCode Nerd Font;
-
-  --color-transparent: transparent;
-  --color-white: #f8f3f8;
-
-  --color-contrast: #181010;
-
-  --color-primary: #48a058;
-
-  --color-secondary: #f0b088;
-
-  --color-danger: #b3181c;
-}
-
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -35,9 +14,7 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-@layer base {
   body {
     @apply bg-white;
   }
@@ -56,15 +33,15 @@
   }
 
   h2 {
-    @apply text-4xl pb-4 text-contrast/200;
+    @apply text-4xl pb-4 text-contrast;
   }
  
   h3 {
-    @apply text-2xl text-contrast/500;
+    @apply text-2xl text-contrast;
   }
 
   p {
-    @apply text-contrast/100;
+    @apply text-contrast;
 
     + p {
       @apply my-8;

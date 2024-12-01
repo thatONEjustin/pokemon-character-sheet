@@ -19,9 +19,19 @@
       }
     }
   }
-
 }
 
 .Tabs {
-  @apply rounded-b-md border-2 border-danger bg-danger overflow-hidden z-10;
+  @apply border-2 
+    rounded-b-md 
+    overflow-hidden
+    z-10;
+
+  @apply 
+    border-danger
+    bg-danger;
+  
+  > .Tab {
+    @apply p-5;
+  }
 }

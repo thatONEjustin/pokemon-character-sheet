@@ -48,7 +48,7 @@
   {#each tabs as { content: Content, index }}
     {#if active == index}
       <section
-        class="Tab p-5"
+        class="Tab"
         in:fly={{ x: "100%", y: 0, delay: 350 }}
         out:fly={{ x: "-100%", y: 0, duration: 250 }}
       >
@@ -67,3 +67,43 @@
   Next
   <i class="nf nf-fa-arrow_right"></i>
 </SubmitButton>
+
+<style lang="postcss">
+  @import "tailwindcss/theme" theme(reference);
+  @import "@css/tailwind/theme.css" theme(reference);
+  .TabsNav {
+    @apply flex
+      items-stretch
+      rounded-md
+      z-25;
+
+    > li {
+      @apply inline-flex rounded-t-md px-5 py-2.5;
+
+      &.active {
+        @apply border
+        border-danger
+        border-b-danger
+        bg-danger;
+
+        a {
+          @apply text-contrast;
+        }
+      }
+    }
+  }
+
+  .Tabs {
+    @apply border-2 
+    rounded-b-md 
+    overflow-hidden
+    z-10;
+
+    @apply border-danger
+    bg-danger;
+
+    > .Tab {
+      @apply p-5;
+    }
+  }
+</style>

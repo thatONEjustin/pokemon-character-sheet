@@ -25,37 +25,19 @@
     moves: Array<PokemonMove>;
   }
 
-  let pokemon: Array<PokemonType> = $state([
-    {
-      name: "Psyduck",
-      mastery: 0,
-      toughness: 3,
-      experience: 0,
-      type: [
-        {
-          name: "Psychic",
-          stab: {
-            weak: ["dark"],
-            strong: ["normal"],
-          },
-        },
-        {
-          name: "Water",
-          stab: {
-            weak: ["electric"],
-            strong: ["fire"],
-          },
-        },
-      ],
-      moves: [
-        {
-          name: "Water Gun",
-          type: ["water"],
-          die: 6,
-        },
-      ],
-    },
-  ]);
+  const POKE_API_URL: string = "https://pokeapi.co/api/v2/";
+  let next_page = "pokemon/?limit=150";
+
+  async function load_pokemon(request_url: string) {
+    const request = await fetch(request_url);
+    const data = await request.json();
+
+    if (data.next) {
+      // next_page = data.next.split("?")[0];
+    }
+
+    return data;
+  }
 </script>
 
 {#snippet pokemon_snippet(pokemon: PokemonType, key: any)}
@@ -72,6 +54,14 @@
 
 <h1>Pokemon</h1>
 
+{#await load_pokemon(POKE_API_URL + next_page) then pokemon}
+  {@const pokemon_list = pokemon.results.map((pokemon_entry: any) => {
+    return pokemon_entry.name;
+  })}
+{/await}
+
+<!-- 
 {#each pokemon as pokemon_data, key}
   {@render pokemon_snippet(pokemon_data, key)}
 {/each}
+-->

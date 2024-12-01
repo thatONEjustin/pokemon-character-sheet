@@ -26,3 +26,24 @@
     {/if}
   </button>
 </div>
+
+<style lang="postcss">
+  @import "tailwindcss/theme" theme(reference);
+  @import "@css/tailwind/theme.css" theme(reference);
+
+  .Submit {
+    button {
+      @apply border
+        bg-primary
+        border-primary
+        rounded-md
+        cursor-pointer
+        px-3
+        py-2;
+
+      &:hover {
+        @apply bg-primary text-white;
+      }
+    }
+  }
+</style>

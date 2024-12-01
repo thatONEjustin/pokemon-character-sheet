@@ -15,10 +15,13 @@ export default defineConfig({
   integrations: [svelte()],
 
   adapter: deno(),
+  // adapter: node({
+  //   mode: 'standalone'
+  // }),
   output: 'server',
 
-  vite: {
-    plugins: [tailwindcss()]
-  },
+  // vite: {
+  //   plugins: [tailwindcss()]
+  // },
 
 });
