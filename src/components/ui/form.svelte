@@ -4,7 +4,7 @@
   import TabContent from "@components/ui/tabs.svelte";
 
   import PlayerInfo from "@sheets/player-info.svelte";
-  import PokemonInfo from "@sheets/pokemon.svelte";
+  import PokemonInfo from "@sheets/pokemon-list.svelte";
 
   import { storageAvailable } from "@js/utils";
   // import SubmitButton from "./form/submitButton.svelte";
