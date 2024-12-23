@@ -84,3 +84,9 @@
 <form method="POST" {onsubmit} bind:this={form}>
   <TabContent {tabs} {sheet_data} {active} />
 </form>
+
+<style lang="postcss">
+form {
+  @apply transition-all h-full;
+}
+</style>

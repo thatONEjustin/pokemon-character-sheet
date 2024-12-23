@@ -11,7 +11,7 @@
 
   import SubmitButton from "@components/ui/form/submitButton.svelte";
 
-  import { fly } from "svelte/transition";
+  import { fly, slide, scale } from "svelte/transition";
 
   let {
     tabs,
@@ -53,6 +53,7 @@
         out:fly={{ x: "-100%", y: 0, duration: 250 }}
       >
         <!-- transition:slide -->
+
         <Content {sheet_data} />
       </section>
     {/if}
@@ -95,15 +96,21 @@
 
   .Tabs {
     @apply border-2 
-    rounded-b-md 
-    overflow-hidden
-    z-10;
+      rounded-b-md 
+      overflow-hidden
+      z-10
+      transition-all
+      h-full;
+
+    display: grid;
+    grid-template-areas: "stack";
 
     @apply border-danger
     bg-danger;
 
     > .Tab {
       @apply p-5;
+      grid-area: stack;
     }
   }
 </style>
