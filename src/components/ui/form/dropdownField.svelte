@@ -22,7 +22,7 @@ function select(option) {
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  type SelectInput = HTMLSelectElement;
+  // type SelectInput = HTMLSelectElement;
 
   let {
     options = [],
@@ -30,29 +30,18 @@ function select(option) {
     containerClass = "",
     active = $bindable(false),
     ...input
-  }: SelectField = $props();
-
-  let test_options = [
-    {
-      label: "Bulbasaur",
-      value: "bulbasaur",
-    },
-    {
-      label: "Ivysaur",
-      value: "ivysaur",
-    },
-  ];
+  } = $props();
 
   // let active = $state(false);
 
-  function showList(event) {
-    active = !active;
-  }
-
-  function select(option) {
-    value = option;
-    active = false;
-  }
+  // function showList(event) {
+  //   active = !active;
+  // }
+  //
+  // function select(option) {
+  //   value = option;
+  //   active = false;
+  // }
 </script>
 
 <div class="FieldContainer {containerClass}">
@@ -83,7 +72,6 @@ function select(option) {
   </select>
 </div>
 
-<!-- 
 <style lang="postcss">
   @import "tailwindcss/theme" theme(reference);
   @import "@css/tailwind/theme.css" theme(reference);
@@ -128,4 +116,3 @@ function select(option) {
     }
   }
 </style>
--->
